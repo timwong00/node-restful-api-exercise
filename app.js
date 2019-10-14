@@ -22,6 +22,7 @@ mongoose.Promise = global.Promise;
 
 // 'use' sets up a middleware
 app.use(morgan("dev"));
+app.use("/uploads", express.static("uploads")); // makes folder statically (publicly) available
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
