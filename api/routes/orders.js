@@ -9,6 +9,7 @@ const Product = require("../models/product");
 router.get("/", (req, res, next) => {
   Order.find()
     .select("product quantity _id") // select information to show
+    .populate("product", "name") // pass property name as arg [2nd arg = list of properties that is wanted to display]; (populate will add product information (name price))
     .exec() // turns to real promise
     .then(docs => {
       res.status(200).json({
@@ -71,6 +72,7 @@ router.post("/", (req, res, next) => {
 
 router.get("/:orderId", (req, res, next) => {
   Order.findById(req.params.orderId)
+    .populate("product")
     .exec()
     .then(order => {
       if (!order) {
